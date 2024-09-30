@@ -1,0 +1,59 @@
+{
+  "name": "langchain-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "type": "module",
+  "license": "Apache-2.0",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xavidop/langchain-example"
+  },
+  "bugs": "https://github.com/xavidop/langchain-example/issues",
+  "keywords": [],
+  "author": {
+    "name": "Xavier Portilla Edo",
+    "email": "xavi_tb@hotmail.com",
+    "url": "https://github.com/xavidop/langchain-example"
+  },
+  "contributors": [],
+  "dependencies": {
+    "@langchain/core": "^0.3.0",
+    "@langchain/google-vertexai": "^0.1.0",
+    "@langchain/langgraph": "^0.2.9",
+    "@langchain/openai": "^0.3.0",
+    "@types/node": "^22.5.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "langchain": "^0.3.0",
+    "nocache": "^4.0.0",
+    "typescript": "^5.5.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "eslint": "^9.9.1",
+    "globals": "^15.9.0",
+    "prettier": "^3.3.3",
+    "tsx": "^4.18.0",
+    "typescript-eslint": "^8.2.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node ./dist/index.js",
+    "dev": "tsx ./src/index.ts",
+    "lint": "eslint src",
+    "lint:fix": "eslint src/ --fix",
+    "dev:watch": "tsx --watch --inspect-brk ./src/index.ts",
+    "prettier": "prettier 'src/**/*.ts' --write"
+  }
+}
