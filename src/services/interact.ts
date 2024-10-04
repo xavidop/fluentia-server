@@ -1,25 +1,23 @@
 import { chainWithHistory } from ".";
 
 export const interactService = async (
-  userInput = "",
-  language = "es",
-  sessionId = "",
+  requestInput: RequestInput,
 ) => {
   const interactionResult = await chainWithHistory.invoke(
     {
-      userInput,
-      language,
+      userInput: requestInput.input,
+      language: requestInput.language,
     },
     {
       configurable: {
-        sessionId,
+        sessionId: requestInput.sessionId,
       },
     },
   );
 
   console.log("\n=====START======\n");
 
-  console.log("InteractionRequest: ", userInput);
+  console.log("InteractionRequest: ", requestInput);
 
   console.log("InteractionResponse: ", interactionResult);
 
