@@ -4,6 +4,6 @@ import nocache from "nocache";
 
 const router = Router();
 
-router.get("/v1/interact", nocache(), interact);
+router.post("/v1/interact", nocache(), interact);
 
 export default router;

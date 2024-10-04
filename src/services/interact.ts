@@ -1,6 +1,6 @@
 import { chainWithHistory } from ".";
 
-export const interactService = async (userInput = "", language = "es") => {
+export const interactService = async (userInput = "", language = "es", sessionId="") => {
   const interactionResult = await chainWithHistory.invoke(
     {
       userInput,
@@ -8,16 +8,18 @@ export const interactService = async (userInput = "", language = "es") => {
     },
     {
       configurable: {
-        sessionId: "foobarbaz",
+        sessionId,
       },
     },
   );
 
   console.log("\n=====START======\n");
 
-  console.log("InteractionResult: ", interactionResult);
+  console.log("InteractionRequest: ", userInput);
+
+  console.log("InteractionResponse: ", interactionResult);
 
   console.log("\n=====END======\n");
 
-  return interactionResult.nextQuestion;
+  return interactionResult;
 };
