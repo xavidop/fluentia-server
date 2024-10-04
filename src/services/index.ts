@@ -79,7 +79,6 @@ const chain = promptTemplate.pipe(llmWihStructuredOutput);
 
 const history = new ChatMessageHistory();
 
-
 export const chainWithHistory = new RunnableWithMessageHistory({
   runnable: chain,
   getMessageHistory: () => history,
