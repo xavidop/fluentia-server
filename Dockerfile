@@ -5,10 +5,10 @@ FROM node:20
 WORKDIR /app
 
 # Copy the package.json and package-lock.json files to the working directory
-COPY package*.json ./
+COPY package.json yarn.lock ./
 
 # Install the project dependencies
-RUN yarn install --production
+RUN yarn install
 
 # Copy the rest of the application code to the working directory
 COPY . .
