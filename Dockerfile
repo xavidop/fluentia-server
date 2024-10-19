@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install the project dependencies
-RUN yarn install
+RUN yarn install --production
 
 # Copy the rest of the application code to the working directory
 COPY . .
