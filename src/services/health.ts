@@ -1,4 +1,3 @@
-export const healthService = async (
-) => {
+export const healthService = async () => {
   return "OK";
 };

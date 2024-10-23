@@ -6,12 +6,14 @@ export const interact = async (req: Request, res: Response) => {
   const language = req.body.language as string;
   const sessionId = req.body.sessionId as string;
   const userId = req.body.userId as string;
+  const scenarioId = req.body.scenarioId as string;
 
   const requestInput: RequestInput = {
     input,
     language,
     sessionId,
     userId,
+    scenarioId,
   };
 
   const result = await interactService(requestInput);

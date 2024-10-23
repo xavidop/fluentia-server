@@ -26,7 +26,10 @@ if (process.env.LLM_PROVIDER == "OPENAI") {
 }
 
 const systemTemplate =
-  "You are an expert in {language}, you have to detect grammar problems sentences";
+  "You are an assistant expert in learning languages, you have to detect grammar problems in users input and help the user to correct them. Alway reply in the same language as the user talks. Please alway reply to the user.\
+   {systemPrompt}.\
+   Here you have some examples of conversations:\
+   {examples}";
 
 const classificationSchema = z.object({
   sentiment: z
@@ -47,17 +50,26 @@ const classificationSchema = z.object({
       "How the sentece is correct grammarly the text is on a scale from 1 to 10",
     ),
   errors: z
-    .array(z.string())
+    .string()
     .describe(
-      "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way. Write each errror in a separate string",
+      "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way. Write it always in english",
     ),
   solution: z
     .string()
     .describe(
-      "The solution to the errors in the text. Write the solution in {language}",
+      "The solution to the errors in the text. Write the solution always in english",
     ),
   language: z.string().describe("The language the text is written in"),
-  nextQuestion: z.string().describe("The next question to ask the user"),
+  nextInteraction: z
+    .string()
+    .describe(
+      "Answer to the user's questions and say the follow up interaction to the user. Always say something in the same language as the user talks, to keep the conversation going",
+    ),
+  tip: z
+    .string()
+    .describe(
+      "A tip to help the user to help the user to improve the language. Write the tip always in english but taking into account the language the user is talking could be different",
+    ),
 });
 
 const promptTemplate = ChatPromptTemplate.fromMessages([
@@ -83,6 +95,6 @@ export const chainWithHistory = new RunnableWithMessageHistory({
   runnable: chain,
   getMessageHistory: () => history,
   inputMessagesKey: "userInput",
-  outputMessagesKey: "nextQuestion",
+  outputMessagesKey: "nextInteraction",
   historyMessagesKey: "history",
 });
