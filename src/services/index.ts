@@ -12,10 +12,10 @@ import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import dotenv from "dotenv";
 dotenv.config();
 
-let model: BaseChatModel;
+export let model: BaseChatModel;
 if (process.env.LLM_PROVIDER == "OPENAI") {
   model = new ChatOpenAI({
-    model: "gpt-4",
+    model: "gpt-4o",
     temperature: 0,
   });
 } else {

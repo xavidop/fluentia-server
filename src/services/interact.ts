@@ -2,6 +2,7 @@ import { chainWithHistory } from ".";
 import { scenarios } from "../utils";
 
 export const interactService = async (requestInput: RequestInput) => {
+
   const interactionResult = await chainWithHistory.invoke(
     {
       systemPrompt: scenarios.get(requestInput.scenarioId)?.systemPrompt,
