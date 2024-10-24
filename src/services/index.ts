@@ -89,12 +89,22 @@ const llmWihStructuredOutput = model.withStructuredOutput(
 //Calls out to the model's (OpenAI's) endpoint passing the prompt. This call returns a string
 const chain = promptTemplate.pipe(llmWihStructuredOutput);
 
-const history = new ChatMessageHistory();
+export const history = new Map<string, ChatMessageHistory>();
 
 export const chainWithHistory = new RunnableWithMessageHistory({
   runnable: chain,
-  getMessageHistory: () => history,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getMessageHistory: (_sessionId: string) => getSessionHistory(_sessionId),
   inputMessagesKey: "userInput",
   outputMessagesKey: "nextInteraction",
   historyMessagesKey: "history",
 });
+
+function getSessionHistory(sessionId: string) {
+  if (!history.has(sessionId)) {
+    console.log("Creating new history for session", sessionId);
+    history.set(sessionId, new ChatMessageHistory());
+  }
+  console.log("Returning history for session", sessionId);
+  return history.get(sessionId)!;
+}

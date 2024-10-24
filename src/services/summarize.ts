@@ -1,9 +1,11 @@
 import { ChatPromptTemplate } from "@langchain/core/prompts";
-import { chainWithHistory, model } from ".";
+import { history, model } from ".";
 
 export const summarizeService = async (requestInput: SummarizeInput) => {
-  const history = await chainWithHistory.getMessageHistory();
-  const messages = await history.getMessages();
+  const sessionId = requestInput.sessionId;
+  const h = history.get(sessionId);
+  const messages = await h?.getMessages() || [];
+  console.log("Messages: ", messages);
 
   const systemPrompt ="\
     You are an AI language tutor. Your role is to summarize the conversation between the student and the teacher, focusing on key points related to language learning. Pay attention to areas where the student demonstrated proficiency, struggled with certain vocabulary or grammar, and areas where improvement is needed.\
