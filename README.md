@@ -1,8 +1,8 @@
-# Fluencia Server
+# Fluentia Server
 
 A modern twist on "fluentia," Latin for fluency, this name reflects the goal of helping users achieve smooth, fluent communication in learning new languages.
 
-- [Fluencia Server](#fluencia-server)
+- [Fluentia Server](#fluentia-server)
   - [Features](#features)
   - [Stack Used](#stack-used)
   - [Installation](#installation)
@@ -29,8 +29,8 @@ A modern twist on "fluentia," Latin for fluency, this name reflects the goal of 
 
 1. Clone the repository:
     ```sh
-    git clone https://github.com/xavidop/fluencia-server.git
-    cd fluencia-server
+    git clone https://github.com/xavidop/fluentia-server.git
+    cd fluentia-server
     ```
 
 2. Install the dependencies:
