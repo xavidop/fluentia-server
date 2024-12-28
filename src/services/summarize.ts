@@ -4,10 +4,11 @@ import { history, model } from ".";
 export const summarizeService = async (requestInput: SummarizeInput) => {
   const sessionId = requestInput.sessionId;
   const h = history.get(sessionId);
-  const messages = await h?.getMessages() || [];
+  const messages = (await h?.getMessages()) || [];
   console.log("Messages: ", messages);
 
-  const systemPrompt ="\
+  const systemPrompt =
+    "\
     You are an AI language tutor. Your role is to summarize the conversation between the student and the teacher, focusing on key points related to language learning. Pay attention to areas where the student demonstrated proficiency, struggled with certain vocabulary or grammar, and areas where improvement is needed.\
     When summarizing, be sure to:\
     Provide an overall assessment of the conversation.\
@@ -18,7 +19,7 @@ export const summarizeService = async (requestInput: SummarizeInput) => {
     Fluency and coherence of responses.\
     Offer constructive feedback on how the student can improve based on the conversation.\
     Keep the tone professional and encouraging, and tailor your summary to help guide the student in their language learning journey.\
-  "
+  ";
 
   const prompt = ChatPromptTemplate.fromMessages([
     ["system", systemPrompt],
@@ -26,11 +27,9 @@ export const summarizeService = async (requestInput: SummarizeInput) => {
   ]);
   const chain = prompt.pipe(model);
 
-
   const summary = await chain.invoke({
     input: messages.map((m) => m.content).join("\n"),
   });
-
 
   console.log("\n=====START======\n");
 

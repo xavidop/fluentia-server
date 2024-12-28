@@ -26,7 +26,7 @@ if (process.env.LLM_PROVIDER == "OPENAI") {
 }
 
 const systemTemplate =
-  "You are an assistant expert in learning languages, you have to detect grammar problems in users input and help the user to correct them. Alway reply in the same language as the user talks. Please alway reply to the user.\
+  "You are an assistant expert in learning languages, you have to detect grammar problems in users input in {language} and help the user to correct them. Alway reply in the same language as the user talks. Please alway reply to the user. Always replay to the user in language {language}\
    {systemPrompt}.\
    Here you have some examples of conversations:\
    {examples}";
@@ -93,7 +93,6 @@ export const history = new Map<string, ChatMessageHistory>();
 
 export const chainWithHistory = new RunnableWithMessageHistory({
   runnable: chain,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   getMessageHistory: (_sessionId: string) => getSessionHistory(_sessionId),
   inputMessagesKey: "userInput",
   outputMessagesKey: "nextInteraction",

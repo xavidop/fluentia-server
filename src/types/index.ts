@@ -8,6 +8,11 @@ type RequestInput = {
 };
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
+type RequestDetectLanguage = {
+  input: string;
+};
+
+/* eslint-disable @typescript-eslint/no-unused-vars */
 type SummarizeInput = {
   sessionId: string;
   userId: string;
