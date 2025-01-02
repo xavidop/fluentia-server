@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { detectLanguageService } from "../services/detectLanguage";
+import { RequestDetectLanguage } from "../types";
 
 export const detectLanguage = async (req: Request, res: Response) => {
   const input = req.body.input as string;

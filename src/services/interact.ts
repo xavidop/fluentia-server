@@ -1,4 +1,5 @@
 import { chainWithHistory } from ".";
+import { RequestInput } from "../types";
 import { scenarios } from "../utils";
 
 export const interactService = async (requestInput: RequestInput) => {
@@ -8,6 +9,10 @@ export const interactService = async (requestInput: RequestInput) => {
       examples: scenarios.get(requestInput.scenarioId)?.examples,
       userInput: requestInput.input,
       language: requestInput.language,
+      fluencyInfo:
+        requestInput.fluencyInfo.status != "error"
+          ? requestInput.fluencyInfo
+          : {},
     },
     {
       configurable: {

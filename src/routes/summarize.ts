@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { summarizeService } from "../services/summarize";
+import { SummarizeInput } from "../types";
 
 export const summarize = async (req: Request, res: Response) => {
   const sessionId = req.body.sessionId as string;

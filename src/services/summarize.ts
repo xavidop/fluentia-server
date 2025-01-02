@@ -1,5 +1,6 @@
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { history, model } from ".";
+import { SummarizeInput } from "../types";
 
 export const summarizeService = async (requestInput: SummarizeInput) => {
   const sessionId = requestInput.sessionId;

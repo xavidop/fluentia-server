@@ -1,24 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-type RequestInput = {
+import { TranscribeScoreOkResponse } from "speechaceapi/dist/services/v9-latest_/models/transcribe-score-ok-response";
+
+export type RequestInput = {
   input: string;
   language: string;
   sessionId: string;
   userId: string;
   scenarioId: string;
+  fluencyInfo: TranscribeScoreOkResponse;
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-type RequestDetectLanguage = {
+export type RequestDetectLanguage = {
   input: string;
 };
 
-/* eslint-disable @typescript-eslint/no-unused-vars */
-type SummarizeInput = {
+export type SummarizeInput = {
   sessionId: string;
   userId: string;
 };
 
-type Scenario = {
+export type Scenario = {
   systemPrompt: string;
   examples: string;
 };

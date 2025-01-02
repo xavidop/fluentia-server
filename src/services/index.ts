@@ -26,7 +26,9 @@ if (process.env.LLM_PROVIDER == "OPENAI") {
 }
 
 const systemTemplate =
-  "You are an assistant expert in learning languages, you have to detect grammar problems in users input in {language} and help the user to correct them. Alway reply in the same language as the user talks. Please alway reply to the user. Always replay to the user in language {language}\
+  "You are an assistant expert in learning languages, you have to detect grammar problems in users input in {language} and help the user to correct them.\
+   You will get a speech & fluency report in JSON format from an external service, please analyze it to.\
+   Alway reply in the same language as the user talks. Please alway reply to the user. Always replay to the user in language {language}\
    {systemPrompt}.\
    Here you have some examples of conversations:\
    {examples}";
@@ -49,33 +51,37 @@ const classificationSchema = z.object({
     .describe(
       "How the sentece is correct grammarly the text is on a scale from 1 to 10",
     ),
-  errors: z
-    .string()
-    .describe(
-      "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way. Write it always in english",
-    ),
+  errors: z.string().describe(
+    "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way.\
+       Write it always in english",
+  ),
   solution: z
     .string()
     .describe(
       "The solution to the errors in the text. Write the solution always in english",
     ),
   language: z.string().describe("The language the text is written in"),
-  nextInteraction: z
-    .string()
-    .describe(
-      "Answer to the user's questions and say the follow up interaction to the user. Always say something in the same language as the user talks, to keep the conversation going",
-    ),
-  tip: z
-    .string()
-    .describe(
-      "A tip to help the user to help the user to improve the language. Write the tip always in english but taking into account the language the user is talking could be different",
-    ),
+  speechAndPronunciationFluency: z.string().describe(
+    "The pronunciation fluency of the user given the input. Specify the proper way to pronounce the text and where it is wrong.\
+       Explain it in a human-readable way. If JSON is empty, do not return anything. Write it always in english",
+  ),
+  nextInteraction: z.string().describe(
+    "Answer to the user's questions and say the follow up interaction to the user.\
+       Always say something in the same language as the user talks, to keep the conversation going",
+  ),
+  tip: z.string().describe(
+    "A tip to help the user to help the user to improve the language.\
+       Write the tip always in english but taking into account the language the user is talking could be different",
+  ),
 });
 
 const promptTemplate = ChatPromptTemplate.fromMessages([
   ["system", systemTemplate],
   new MessagesPlaceholder("history"),
-  ["human", "{userInput}"],
+  [
+    "human",
+    "{userInput}. Here is the speech & pronunciation analysis in JSON Format: {fluencyInfo}",
+  ],
 ]);
 
 // Name is optional, but gives the models more clues as to what your schema represents

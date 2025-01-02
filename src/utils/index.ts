@@ -1,3 +1,5 @@
+import { Scenario } from "../types";
+
 export const scenarios = new Map<string, Scenario>([
   [
     "1",

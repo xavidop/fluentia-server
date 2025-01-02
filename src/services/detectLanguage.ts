@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { model } from ".";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { RequestDetectLanguage } from "../types";
 
 export const detectLanguageService = async (
   requestInput: RequestDetectLanguage,
@@ -9,9 +10,11 @@ export const detectLanguageService = async (
     locale: z
       .string()
       .describe("The locale of the detected language in ISO 639-1 format"),
-      language: z
+    language: z
       .string()
-      .describe("The language of the detected language. Get the language in English"),
+      .describe(
+        "The language of the detected language. Get the language in English",
+      ),
   });
 
   const llmWihStructuredOutput = model.withStructuredOutput(parser, {
