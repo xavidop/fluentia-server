@@ -9,11 +9,11 @@ export const detectLanguageService = async (
   const parser = z.object({
     locale: z
       .string()
-      .describe("The locale of the detected language in ISO 639-1 format"),
+      .describe("The locale of the detected language in ISO 639-1 format for example es-ES or en-US"),
     language: z
       .string()
       .describe(
-        "The language of the detected language. Get the language in English",
+        "The language of the text for example Spanish or English. Get the language in English",
       ),
   });
 
