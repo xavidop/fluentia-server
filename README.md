@@ -99,13 +99,6 @@ graph TD
     N --> O[Return Structured Response]
     
     O --> P[Client Response<br/>JSON with analysis results]
-    
-    style B fill:#e1f5fe
-    style H fill:#f3e5f5
-    style J fill:#e8f5e8
-    style K fill:#fff3e0
-    style F fill:#fce4ec
-    style M fill:#e0f2f1
 ```
 
 **Key Features:**
