@@ -20,7 +20,7 @@ if (process.env.LLM_PROVIDER == "OPENAI") {
   });
 } else {
   model = new ChatVertexAI({
-    model: "gemini-1.5-pro-001",
+    model: "gemini-2.5-pro-preview-06-05",
     temperature: 0,
   });
 }
@@ -36,13 +36,15 @@ const systemTemplate =
 const classificationSchema = z.object({
   sentiment: z
     .enum(["happy", "neutral", "sad", "angry", "frustrated"])
-    .describe("The sentiment of the text"),
+    .describe("The sentiment of the text")
+    .default("neutral"),
   aggressiveness: z
     .number()
     .int()
     .min(1)
     .max(10)
-    .describe("How aggressive the text is on a scale from 1 to 10"),
+    .describe("How aggressive the text is on a scale from 1 to 10")
+    .default(5),
   correctness: z
     .number()
     .int()
@@ -50,29 +52,46 @@ const classificationSchema = z.object({
     .max(10)
     .describe(
       "How the sentece is correct grammarly the text is on a scale from 1 to 10",
-    ),
-  errors: z.string().describe(
-    "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way.\
+    )
+    .default(5),
+  errors: z
+    .string()
+    .describe(
+      "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way.\
        Write it always in english",
-  ),
+    )
+    .default(""),
   solution: z
     .string()
     .describe(
       "The solution to the errors in the text. Write the solution always in english",
-    ),
-  language: z.string().describe("The language the text is written in"),
-  speechAndPronunciationFluency: z.string().describe(
-    "The pronunciation fluency of the user given the input. Specify the proper way to pronounce the text and where it is wrong.\
+    )
+    .default(""),
+  language: z
+    .string()
+    .describe("The language the text is written in")
+    .default("spanish"),
+  speechAndPronunciationFluency: z
+    .string()
+    .describe(
+      "The pronunciation fluency of the user given the input. Specify the proper way to pronounce the text and where it is wrong.\
        Explain it in a human-readable way. If JSON is empty, do not return anything. Write it always in english",
-  ),
-  nextInteraction: z.string().describe(
-    "Answer to the user's questions and say the follow up interaction to the user.\
+    )
+    .default(""),
+  nextInteraction: z
+    .string()
+    .describe(
+      "Answer to the user's questions and say the follow up interaction to the user.\
        Always say something in the same language as the user talks, to keep the conversation going",
-  ),
-  tip: z.string().describe(
-    "A tip to help the user to help the user to improve the language.\
+    )
+    .default(""),
+  tip: z
+    .string()
+    .describe(
+      "A tip to help the user to help the user to improve the language.\
        Write the tip always in english but taking into account the language the user is talking could be different",
-  ),
+    )
+    .default(""),
 });
 
 const promptTemplate = ChatPromptTemplate.fromMessages([

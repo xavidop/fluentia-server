@@ -9,7 +9,9 @@ export const detectLanguageService = async (
   const parser = z.object({
     locale: z
       .string()
-      .describe("The locale of the detected language in ISO 639-1 format for example es-ES or en-US"),
+      .describe(
+        "The locale of the detected language in ISO 639-1 format for example es-ES or en-US",
+      ),
     language: z
       .string()
       .describe(
