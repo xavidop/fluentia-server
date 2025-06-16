@@ -37,14 +37,16 @@ const classificationSchema = z.object({
   sentiment: z
     .enum(["happy", "neutral", "sad", "angry", "frustrated"])
     .describe("The sentiment of the text")
-    .default("neutral"),
+    .default("neutral")
+    .nullable(),
   aggressiveness: z
     .number()
     .int()
     .min(1)
     .max(10)
     .describe("How aggressive the text is on a scale from 1 to 10")
-    .default(5),
+    .default(5)
+    .nullable(),
   correctness: z
     .number()
     .int()
@@ -53,45 +55,52 @@ const classificationSchema = z.object({
     .describe(
       "How the sentece is correct grammarly the text is on a scale from 1 to 10",
     )
-    .default(5),
+    .default(5)
+    .nullable(),
   errors: z
     .string()
     .describe(
       "The errors in the text. Specify the proper way to write the text and where it is wrong. Explain it in a human-readable way.\
        Write it always in english",
     )
-    .default(""),
+    .default("")
+    .nullable(),
   solution: z
     .string()
     .describe(
       "The solution to the errors in the text. Write the solution always in english",
     )
-    .default(""),
+    .default("")
+    .nullable(),
   language: z
     .string()
     .describe("The language the text is written in")
-    .default("spanish"),
+    .default("spanish")
+    .nullable(),
   speechAndPronunciationFluency: z
     .string()
     .describe(
       "The pronunciation fluency of the user given the input. Specify the proper way to pronounce the text and where it is wrong.\
        Explain it in a human-readable way. If JSON is empty, do not return anything. Write it always in english",
     )
-    .default(""),
+    .default("")
+    .nullable(),
   nextInteraction: z
     .string()
     .describe(
       "Answer to the user's questions and say the follow up interaction to the user.\
        Always say something in the same language as the user talks, to keep the conversation going",
     )
-    .default(""),
+    .default("")
+    .nullable(),
   tip: z
     .string()
     .describe(
       "A tip to help the user to help the user to improve the language.\
        Write the tip always in english but taking into account the language the user is talking could be different",
     )
-    .default(""),
+    .default("")
+    .nullable(),
 });
 
 const promptTemplate = ChatPromptTemplate.fromMessages([
